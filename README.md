@@ -1,2 +1,2 @@
-# GoForks
-go语言学习
+# GoPractice
+`go语言学习`
