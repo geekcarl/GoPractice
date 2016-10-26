@@ -4,30 +4,28 @@ import (
 	"fmt"
 	"strconv"
 )
-
+var size = 20
 var count int
-var chans []chan int
 
 func main() {
 	fmt.Println("Hello World !")
 	
-
-	var size=10
-	chans=make([]chan int,10)
+	chans := make([]chan int,size)
 
 	for i:=0;i<size;i++{
-		go test(i)
+		chans[i] = make(chan int)
+		go test(chans[i],i)
 	}
 
-	for j:=0;j<size;j++{
+	for _,c:=range(chans){
 
-		<-chans[j]
+		v:= <-c
+		fmt.Println("out-"+strconv.Itoa(v))
 	}
-
 }
 
-func test(i int){
+func test(c chan int,index int){
+	c<-index
 	count ++;
 	fmt.Println(strconv.Itoa(count))
-	chans[i]<-1
 }
